@@ -25,11 +25,27 @@
                 <div class="card m-4">
                     <div class="card-body" id="box-cont">
                         <h3 class="card-title py-3">Detect whether your fruit is fresh or rotten</h3>
+
+                        <button type="button" class="btn btn-primary" onclick="init()">Start webcam</button>
+                        <input type="file" accept="image/*" id="fruitimg">
+                        <button class="btn btn-primary" id="loadBtn" onclick="fruitImageUpload()">Load</button>
+                        <div id="webcam-container"></div>
+                        <div id="label-container"></div>
+
+                        <img id="uploadedImage" width="200px" height="200px" style="display: none;" />
+                        <div id="errorcase" style="font-size: large;"></div>
                     </div>
                 </div>
             </div>
         </div>
     </div>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@tensorflow/tfjs@1.3.1/dist/tf.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@teachablemachine/image@0.8/dist/teachablemachine-image.min.js"></script>
+
+    <script src=https://npmcdn.com/parse/dist/parse.min.js></script>
+    <script src="script.js"></script>
+
 
 </body>
 

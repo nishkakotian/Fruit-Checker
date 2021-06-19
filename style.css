@@ -1,0 +1,17 @@
+*{
+    margin: 0;
+    box-sizing: border-box;
+}
+
+#title{
+    font-family: 'Titillium Web', sans-serif;
+}
+
+#main{
+    margin-top: 150px;
+}
+
+body{
+    background-image: url(Images/bg.jpg);
+    background-size: cover;
+}

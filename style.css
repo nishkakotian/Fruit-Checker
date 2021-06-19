@@ -1,10 +1,21 @@
 *{
     margin: 0;
     box-sizing: border-box;
+    font-family: 'Titillium Web', sans-serif;
+    font-weight: 600;
 }
 
-#title{
+.title{
     font-family: 'Titillium Web', sans-serif;
+    padding-left: 10px;
+}
+
+#brand{
+    font-weight: 700;
+}
+
+#detect{
+    font-weight: 600;
 }
 
 #main{
@@ -14,4 +25,18 @@
 body{
     background-image: url(Images/bg.jpg);
     background-size: cover;
+}
+.yellow{
+    color: #d38c09;
+}
+.red{
+    color: rgb(156, 34, 61);
+}
+.orange{
+    color:rgb(212, 100, 8);
+}
+
+p{
+    font-size: 1.2em;
+    font-weight: 400;
 }

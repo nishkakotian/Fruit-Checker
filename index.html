@@ -5,10 +5,13 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
-        integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-+0n0xVW2eSR5OomGNYDnhzAbDsOXxcvSN1TPprVMTNDbiYZCxYbOOl7+AMvyTG2x" crossorigin="anonymous">
+
     <link rel="preconnect" href="https://fonts.gstatic.com">
-    <link href="https://fonts.googleapis.com/css2?family=Titillium+Web:wght@700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Titillium+Web:wght@400;500;600;700&display=swap"
+        rel="stylesheet">
+
     <link rel="stylesheet" href="style.css">
     <title>Fruit-Check</title>
 
@@ -16,7 +19,7 @@
 
 <body>
     <nav class="navbar navbar-light" style="background-color: rgb(255, 247, 212);">
-        <a class="navbar-brand" id="title" href="#">Fruit-Check</a>
+        <a class="navbar-brand title" id="brand" href="#">Fruit-Check</a>
     </nav>
 
     <div class="container" id="main">
@@ -24,11 +27,20 @@
             <div class="col-lg-10 col-md-12">
                 <div class="card m-4">
                     <div class="card-body" id="box-cont">
-                        <h3 class="card-title py-3">Detect whether your fruit is fresh or rotten</h3>
-
-                        <button type="button" class="btn btn-primary" onclick="init()">Start webcam</button>
-                        <input type="file" accept="image/*" id="fruitimg">
-                        <button class="btn btn-primary" id="loadBtn" onclick="fruitImageUpload()">Load</button>
+                        <h3 class="card-title py-3 title" id="detect">Detect whether your fruit is fresh or rotten
+                        </h3>
+                        <p>
+                            To identify if a <span class="yellow">Banana</span>, <span class="orange">Orange</span> or
+                            <span class="red">Apple</span> has defects, either use your web cam and show the fruit
+                            or upload an image from your device.
+                        </p>
+                        <label for="webcam" class="p-3">USE WEBCAM: </label>
+                        <button id="webcam" type="button" class="btn btn-outline-primary" onclick="init()">Start
+                            webcam</button><br />
+                        <label class="p-3" for="fruiting">UPLOAD IMAGE: </label>
+                        <input type="file" class="form-control" accept="image/*" id="fruitimg"
+                            style="width: 400px; display: inline;">
+                        <button class="btn btn-outline-primary" id="loadBtn" onclick="fruitImageUpload()">Load</button>
                         <div id="webcam-container"></div>
                         <div id="label-container"></div>
 

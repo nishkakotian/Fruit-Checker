@@ -23,8 +23,9 @@
 }
 
 body{
-    background-image: url(Images/bg.jpg);
+    background: url(Images/bg.jpg) no-repeat center fixed; 
     background-size: cover;
+        
 }
 .yellow{
     color: #d38c09;
@@ -33,7 +34,7 @@ body{
     color: rgb(156, 34, 61);
 }
 .orange{
-    color:rgb(212, 100, 8);
+    color:rgb(230, 105, 3);
 }
 
 p{

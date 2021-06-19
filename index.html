@@ -7,7 +7,6 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/css/bootstrap.min.css" rel="stylesheet"
         integrity="sha384-+0n0xVW2eSR5OomGNYDnhzAbDsOXxcvSN1TPprVMTNDbiYZCxYbOOl7+AMvyTG2x" crossorigin="anonymous">
-
     <link rel="preconnect" href="https://fonts.gstatic.com">
     <link href="https://fonts.googleapis.com/css2?family=Titillium+Web:wght@400;500;600;700&display=swap"
         rel="stylesheet">
@@ -31,33 +30,82 @@
                         </h3>
                         <p>
                             To identify if a <span class="yellow">Banana</span>, <span class="orange">Orange</span> or
-                            <span class="red">Apple</span> has defects, either use your web cam and show the fruit
+                            <span class="red">Apple</span> has defects, either use your web camera and show the fruit
                             or upload an image from your device.
                         </p>
                         <label for="webcam" class="p-3">USE WEBCAM: </label>
                         <button id="webcam" type="button" class="btn btn-outline-primary" onclick="init()">Start
                             webcam</button><br />
                         <label class="p-3" for="fruiting">UPLOAD IMAGE: </label>
-                        <input type="file" class="form-control" accept="image/*" id="fruitimg"
-                            style="width: 400px; display: inline;">
-                        <button class="btn btn-outline-primary" id="loadBtn" onclick="fruitImageUpload()">Load</button>
+                        <div class="ms-3">
+                            <input type="file" class="form-control" accept="image/*" id="fruitimg"
+                                style="display: inline; width: 60%;">
+                            <button class="btn btn-outline-primary" id="loadBtn"
+                                onclick="fruitImageUpload()">Load</button>
+                        </div>
                         <div id="webcam-container"></div>
                         <div id="label-container"></div>
 
                         <img id="uploadedImage" width="200px" height="200px" style="display: none;" />
-                        <div id="errorcase" style="font-size: large;"></div>
                     </div>
                 </div>
             </div>
         </div>
     </div>
-    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
     <script src="https://cdn.jsdelivr.net/npm/@tensorflow/tfjs@1.3.1/dist/tf.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/@teachablemachine/image@0.8/dist/teachablemachine-image.min.js"></script>
 
     <script src=https://npmcdn.com/parse/dist/parse.min.js></script>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script src="script.js"></script>
+    <script>
+        $(document).ready(function () {
+            $("#loadBtn").on("click", function () {
+                const fileUploadControl = $("#fruitimg")[0];
+                if (fileUploadControl.files.length > 0) {
 
+                    const modelURL = URL + "model.json";
+                    const metadataURL = URL + "metadata.json";
+
+                    // load the model and metadata
+                    model = await tmImage.load(modelURL, metadataURL);
+                    maxPredictions = model.getTotalClasses();
+
+                    const file = fileUploadControl.files[0];
+
+                    const name = "photo.jpg";
+                    const parseFile = new Parse.File(name, file);
+
+                    parseFile.save().then(function () {
+                        // The file has been saved to the Parse server
+                        document.getElementById("uploadedImage").src = parseFile.url();
+
+                        const prediction = await model.predict(parseFile.url());
+                        var highestVal = 0;
+                        var bestClass = "";
+                        result = document.getElementById("label-container");
+                        for (let i = 0; i < maxPredictions; i++) {
+                            const classPrediction = prediction[i].probability.toFixed(2);
+                            if (classPrediction > highestVal) {
+                                highestVal = classPrediction;
+                                bestClass = prediction[i].className;
+                            }
+                        }
+
+                        result.innerHTML = bestClass;
+
+                    }, function (error) {
+                        // The file either could not be read, or could not be saved to Parse.
+                        result.innerHTML = "Uploading your image failed!";
+                    });
+                }
+                else {
+                    result.innerHTML = "Try Again!";
+                }
+            });
+        });
+    </script>
 
 </body>
 

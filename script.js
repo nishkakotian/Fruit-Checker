@@ -85,6 +85,39 @@ async function predict() {
     newlabel.innerHTML = bestClass;
 }
 
+async function getPredictions() {
+
+    let canvas = document.createElement("canvas");
+    let context = canvas.getContext("2d");
+    canvas.width = "224";
+    canvas.height = "224";
+    context.drawImage(img, 0, 0);
+    document.getElementById("uploadedImage").appendChild(canvas);
+
+    const pred = await model.predict(canvas);
+
+    var highestVal = 0.00;
+    var bestClass = "";
+
+    for (let i = 0; i < maxPredictions; i++) {
+        var classPrediction = pred[i].probability.toFixed(2);
+        if (classPrediction > highestVal) {
+            highestVal = classPrediction;
+            bestClass = pred[i].className;
+        }
+    }
+
+    if (bestClass == "Fresh Banana" || bestClass == "Fresh Apple" || bestClass == "Fresh Orange") {
+        labelContainer.className = "alert alert-success";
+    }
+    else {
+        labelContainer.className = "alert alert-danger";
+    }
+
+    labelContainer.innerHTML = bestClass;
+}
+
+
 $(document).ready(function () {
     $("#loadBtn").on("click", async function () {
 
@@ -103,42 +136,16 @@ $(document).ready(function () {
             const name = "photo.jpg";
             const parseFile = new Parse.File(name, file);
 
-            result = document.getElementById("label-container");
+            labelContainer = document.getElementById("label-container");
 
             parseFile.save().then(async function () {
-                // The file has been saved to the Parse server
-                imagedisplay = document.getElementById("uploadedImage");
-                imagedisplay.style.display = "";
+                //The file has been saved to the Parse server
 
-                imagedisplay.src = parseFile.url();
-                image = document.getElementById("uploadedImage");
-                const pred = await model.predict(image);
+                img = new Image(224, 224);
+                img.crossOrigin = "Anonymous";
+                img.addEventListener("load", getPredictions, false);
+                img.src = parseFile.url();
 
-                var highestVal = 0.00;
-                var bestClass = "";
-                result = document.getElementById("label-container");
-
-                for (let i = 0; i < maxPredictions; i++) { // and class labels
-                    result.appendChild(document.createElement('div'));
-                }
-
-                for (let i = 0; i < maxPredictions; i++) {
-                    var classPrediction = pred[i].probability.toFixed(2);
-                    if (classPrediction > highestVal) {
-                        highestVal = classPrediction;
-                        bestClass = pred[i].className;
-                    }
-                    result.childNodes[i].innerHTML = classPrediction;
-                }
-
-                if (bestClass == "Fresh Banana" || bestClass == "Fresh Apple" || bestClass == "Fresh Orange") {
-                    result.className = "alert alert-success";
-                }
-                else {
-                    result.className = "alert alert-danger";
-                }
-
-                result.innerHTML = bestClass;
 
             }, function (error) {
                 // The file either could not be read, or could not be saved to Parse.

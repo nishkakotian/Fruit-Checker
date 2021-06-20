@@ -6,7 +6,7 @@ Parse.serverURL = 'https://pg-app-s4xeiqcvd9vyl5lycfvuzz49fbtelr.scalabl.cloud/1
 
 const URL = "https://teachablemachine.withgoogle.com/models/N58PlX_GN/";
 
-let model, webcam, newlabel, labelContainer, maxPredictions, camera_on = false;
+let model, webcam, newlabel, canvas, labelContainer, maxPredictions, camera_on = false, image_upload = false;
 
 function useWebcam() {
     camera_on = !camera_on;
@@ -48,7 +48,6 @@ async function init() {
     document.getElementById("webcam-container").appendChild(webcam.canvas);
 
     newlabel = document.createElement("div");
-
     labelContainer = document.getElementById("label-container");
     labelContainer.appendChild(newlabel);
 }
@@ -87,8 +86,8 @@ async function predict() {
 
 async function getPredictions() {
 
-    let canvas = document.createElement("canvas");
-    let context = canvas.getContext("2d");
+    canvas = document.createElement("canvas");
+    var context = canvas.getContext("2d");
     canvas.width = "224";
     canvas.height = "224";
     context.drawImage(img, 0, 0);
@@ -107,19 +106,32 @@ async function getPredictions() {
         }
     }
 
+    newlabel = document.createElement("div");
+    labelContainer = document.getElementById("label-container");
+    labelContainer.appendChild(newlabel);
+
     if (bestClass == "Fresh Banana" || bestClass == "Fresh Apple" || bestClass == "Fresh Orange") {
-        labelContainer.className = "alert alert-success";
+        newlabel.className = "alert alert-success";
     }
     else {
-        labelContainer.className = "alert alert-danger";
+        newlabel.className = "alert alert-danger";
     }
 
-    labelContainer.innerHTML = bestClass;
+    newlabel.innerHTML = bestClass;
 }
 
 
 $(document).ready(function () {
     $("#loadBtn").on("click", async function () {
+
+        labelContainer = document.getElementById("label-container");
+
+        image_upload = !image_upload;
+
+        if (!image_upload) {
+            labelContainer.removeChild(newlabel);
+            document.getElementById("uploadedImage").removeChild(canvas);
+        }
 
         const fileUploadControl = $("#fruitimg")[0];
         if (fileUploadControl.files.length > 0) {
@@ -135,8 +147,6 @@ $(document).ready(function () {
 
             const name = "photo.jpg";
             const parseFile = new Parse.File(name, file);
-
-            labelContainer = document.getElementById("label-container");
 
             parseFile.save().then(async function () {
                 //The file has been saved to the Parse server

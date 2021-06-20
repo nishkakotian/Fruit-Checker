@@ -12,6 +12,7 @@
 
 #brand{
     font-weight: 700;
+    font-family: 'Rubik';
 }
 
 #detect{
@@ -23,7 +24,7 @@
 }
 
 body{
-    background: url(Images/bg.jpg) no-repeat center fixed; 
+    background: url(Images/background.jpg) no-repeat center fixed; 
     background-size: cover;
         
 }

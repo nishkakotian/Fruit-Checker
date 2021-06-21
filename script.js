@@ -54,14 +54,14 @@ async function init() {
 
 async function loop() {
     webcam.update(); // update the webcam frame
-    await predict();
+    await predict(webcam.canvas);
     window.requestAnimationFrame(loop);
 }
 
-// run the webcam image through the image model
-async function predict() {
+// run the image through the image model
+async function predict(input) {
     // predict can take in an image, video or canvas html element
-    const prediction = await model.predict(webcam.canvas);
+    const prediction = await model.predict(input);
 
     var highestVal = 0.00;
     var bestClass = "";
@@ -93,31 +93,11 @@ async function getPredictions() {
     context.drawImage(img, 0, 0);
     document.getElementById("uploadedImage").appendChild(canvas);
 
-    const pred = await model.predict(canvas);
-
-    var highestVal = 0.00;
-    var bestClass = "";
-
-    for (let i = 0; i < maxPredictions; i++) {
-        var classPrediction = pred[i].probability.toFixed(2);
-        if (classPrediction > highestVal) {
-            highestVal = classPrediction;
-            bestClass = pred[i].className;
-        }
-    }
-
     newlabel = document.createElement("div");
     labelContainer = document.getElementById("label-container");
     labelContainer.appendChild(newlabel);
 
-    if (bestClass == "Fresh Banana" || bestClass == "Fresh Apple" || bestClass == "Fresh Orange") {
-        newlabel.className = "alert alert-success";
-    }
-    else {
-        newlabel.className = "alert alert-danger";
-    }
-
-    newlabel.innerHTML = bestClass;
+    await predict(canvas);
 }
 
 
@@ -155,7 +135,6 @@ $(document).ready(function () {
                 img.crossOrigin = "Anonymous";
                 img.addEventListener("load", getPredictions, false);
                 img.src = parseFile.url();
-
 
             }, function (error) {
                 // The file either could not be read, or could not be saved to Parse.

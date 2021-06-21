@@ -12,11 +12,12 @@
         rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=Rubik:wght@700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="style.css">
+    <link rel="icon" href="Images/logo.png">
     <title>Fruit-Checker</title>
 </head>
 
 <body>
-    <nav class="navbar navbar-dark" style="background-color: rgb(0, 9, 128);">
+    <nav class="navbar navbar-dark" style="background-color: #000980;">
         <a class="navbar-brand title" id="brand" href="#">
             <img src="Images/logo.png" width="30" height="30" class="d-inline-block align-top" alt="logo">
             Fruit-Checker
@@ -30,24 +31,23 @@
                     <div class="card-body" id="box-cont">
                         <h3 class="card-title py-3 title" id="detect">Detect whether your fruit is fresh or rotten
                         </h3>
-                        <p>
+                        <p class="px-3">
                             To identify if a <span class="yellow">Banana</span>, <span class="orange">Orange</span> or
                             <span class="red">Apple</span> has defects, either use your web camera and show the fruit
                             or upload an image from your device.
                         </p>
-                        <label for="webcam" class="p-3">USE WEBCAM: </label>
-                        <button id="webcam" type="button" class="btn btn-outline-primary" onclick="useWebcam()">Start
+                        <label for="webcam" class="ps-3 pt-3 pb-3">USE WEBCAM:</label>
+                        <button id="webcam" type="button" class="btn btn-outline-primary ms-3"
+                            onclick="useWebcam()">Start
                             webcam</button><br />
-                        <label class="p-3" for="fruitimg">UPLOAD IMAGE: </label>
-                        <div class="ms-3">
-                            <input type="file" class="form-control" accept="image/*" id="fruitimg"
-                                style="display: inline; width: 60%;">
+                        <label class="p-3" for="fruitimg">UPLOAD IMAGE:</label>
+                        <div class="input-group px-3 pb-3" id="inputimg">
+                            <input type="file" class="form-control" accept="image/*" id="fruitimg">
                             <button class="btn btn-outline-primary" id="loadBtn">Load</button>
                         </div>
-
-                        <div id="webcam-container" class="p-3"></div>
-                        <div id="uploadedImage" class="p-3"></div>
-                        <div id="label-container" class="ps-3"></div>
+                        <div id="webcam-container" class="px-3"></div>
+                        <div id="uploadedImage" class="px-3"></div>
+                        <div id="label-container" class="px-3 pt-3"></div>
                     </div>
                 </div>
             </div>
@@ -57,10 +57,9 @@
         <script
             src="https://cdn.jsdelivr.net/npm/@teachablemachine/image@0.8/dist/teachablemachine-image.min.js"></script>
 
-        <script src=https://npmcdn.com/parse/dist/parse.min.js></script>
+        <script src=https://unpkg.com/parse/dist/parse.min.js></script>
         <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
         <script src="script.js"></script>
-
 
 </body>
 

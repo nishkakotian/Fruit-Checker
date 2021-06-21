@@ -19,10 +19,6 @@
     font-weight: 600;
 }
 
-#main{
-    margin-top: 75px;
-}
-
 body{
     background: url(Images/background.jpg) no-repeat center fixed; 
     background-size: cover;
@@ -41,4 +37,15 @@ body{
 p{
     font-size: 1.2em;
     font-weight: 400;
+}
+#main{
+    margin-top: 40px;
+}
+@media (min-width: 992px) {
+    #inputimg{
+        width: 60%;
+    }
+    #main{
+        margin-top: 60px;
+    }
 }

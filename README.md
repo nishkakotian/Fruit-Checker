@@ -4,6 +4,8 @@ It is a web application that can be used to check if an orange,apple or banana i
 
 Check it out here : https://nishkakotian.github.io/Fruit-Checker/
 
+You can find my blog post describing the project [here](https://dev.to/nishkakotian/fruit-quality-detection-web-app-using-sashido-and-teachable-machine-2799)
+
 # Demo
 
 ![](fruit_checker_demo.gif)

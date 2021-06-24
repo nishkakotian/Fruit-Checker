@@ -9,6 +9,3 @@ You can find my blog post describing the project [here](https://dev.to/nishkakot
 # Demo
 
 ![](fruit_checker_demo.gif)
-
-## Credits
-https://www.freepik.com/free-photos-vectors/background : Background vector created by freepik
